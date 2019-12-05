@@ -44,18 +44,21 @@ public class ZipFileProcessor implements FileProcessor
 		{
 			ZipFile file = new ZipFile(fileObj);
 			Enumeration<? extends ZipEntry> entries = file.entries();
+			String destFileNameFormatter = extractionFolder.concat(File.separator.concat("%s"));
 			while (entries.hasMoreElements())
 			{
 				ZipEntry entry = entries.nextElement();
-				if (!entry.isDirectory())
+				String uncompressedFileName = String.format(destFileNameFormatter, entry.getName());
+				if (entry.isDirectory())
 				{
-					InputStream inStream = file.getInputStream(entry);
-					String uncompressedFileName = extractionFolder.concat(File.separator).concat(entry.getName());
-					FileOutputStream fileOutput = new FileOutputStream(uncompressedFileName );
-					inStream.transferTo(fileOutput);
-					inStream.close();
-					fileOutput.close();
+					new File(uncompressedFileName).mkdirs();
 				}
+
+				InputStream inStream = file.getInputStream(entry);
+				FileOutputStream fileOutput = new FileOutputStream(uncompressedFileName);
+				inStream.transferTo(fileOutput);
+				inStream.close();
+				fileOutput.close();
 			}
 			file.close();
 		}
