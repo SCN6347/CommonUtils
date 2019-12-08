@@ -2,6 +2,11 @@ package modules.extract;
 
 import java.io.File;
 
+/**
+ * 
+ * @author scn6347
+ *
+ */
 public interface FileProcessor
 {
 	public void processFileFolder(String fileFolder, String extractionFolder);
