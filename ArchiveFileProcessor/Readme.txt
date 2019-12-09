@@ -4,6 +4,7 @@ Two modes of processing are available as of now.
 
   1. Processing a Single File:
       Process the file and extract the contents to a Specified Folder.
+      
   2. Processing a folder containing the archives.
       Process the each files in this individually.
       Extract the contents to a folder in the specified destination folder.
